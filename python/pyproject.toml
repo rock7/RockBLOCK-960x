@@ -1,0 +1,43 @@
+# Python bindings package: a ctypes wrapper around the C driver.
+#
+# `pip install ./python` runs CMake on the repo root (scikit-build-core),
+# builds the rockblock960x_python shared library and installs it inside the
+# rockblock960x package, next to _native.py, which loads it from there.
+#
+#   pip install ./python                  # from the repo root
+#   pip install -e ./python               # editable, for working on the wrapper
+#   pip wheel ./python -w dist            # build a wheel to hand round
+#   pip install "git+https://<repo-url>#subdirectory=python"
+#
+# The C sources live outside this directory (cmake.source-dir = ".."), so
+# install from a checkout or git URL; an sdist built from here alone would
+# be missing them.
+
+[build-system]
+requires = ["scikit-build-core>=0.10"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "rockblock960x"
+version = "0.1.0"  # managed by scripts/version.py — do not edit by hand
+description = "Python bindings for the RockBLOCK-960x Iridium SBD modem library"
+readme = { text = "Python bindings for RockBLOCK 9602/9603/9604 Iridium SBD modems.", content-type = "text/plain" }
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    # The serial port the driver's callbacks are implemented on.
+    "pyserial>=3.5",
+]
+
+[tool.scikit-build]
+minimum-version = "build-system.requires"
+cmake.source-dir = ".."
+cmake.build-type = "Release"
+# Only the shared library is needed: skip the examples and the C tests.
+cmake.define = { RB960X_BUILD_PYTHON = "ON", BUILD_TESTING = "OFF" }
+build.targets = ["rockblock960x_python"]
+install.components = ["python"]
+wheel.packages = ["rockblock960x"]
+# Loaded with ctypes, not imported as an extension module, so one wheel
+# works for every Python 3 version (still one per OS/architecture).
+wheel.py-api = "py3"

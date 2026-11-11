@@ -1,0 +1,32 @@
+/**
+ * @mainpage RockBLOCK 960x Library
+ *
+ * @section intro_sec Introduction
+ *
+ * This is the official C library for the RockBLOCK 9602, 9603 and 9604
+ * satellite modems. It enables sending and receiving data via the Iridium
+ * network using Short Burst Data (SBD), and supports Linux, macOS, Windows
+ * and Arduino platforms.
+ *
+ * The main documentation for this project is available in the
+ * <a href="https://github.com/rock7/RockBLOCK-960x/blob/master/README.md">README.md</a>
+ * of this repository. More specific documentation for the C library can be found below.
+ *
+ * This library also builds a shared library that powers the
+ * rockblock960x Python package.
+ *
+ * @section features_sec Features
+ *
+ * - Simple high-level API to configure and use the RockBLOCK 960x via serial
+ * - Synchronous and asynchronous SBD sessions
+ * - Portable C99 core with a pluggable serial port layer
+ * - Arduino and PlatformIO compatible
+ *
+ * @section usage_sec Getting Started
+ *
+ * See the main API in <a href="rockblock960x_8h.html">rockblock960x.h</a>.
+ *
+ * @section license_sec License
+ *
+ * MIT License — maintained by <a href="https://www.groundcontrol.com/">Ground Control</a>.
+ */

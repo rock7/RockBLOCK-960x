@@ -1,0 +1,24 @@
+{
+  "name": "RockBLOCK-960x",
+  "version": "0.1.0",
+  "description": "Driver for RockBLOCK 9602/9603 Iridium SBD satellite modems. Portable C99 core with a pluggable HAL.",
+  "keywords": ["iridium", "sbd", "satellite", "rockblock", "modem"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rock7/RockBLOCK-960x"
+  },
+  "authors": [
+    {
+      "name": "Ground Control",
+      "email": "help@groundcontrol.com",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*",
+  "headers": "rockblock960x.h",
+  "build": {
+    "srcDir": "src"
+  }
+}

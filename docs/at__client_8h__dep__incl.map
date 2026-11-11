@@ -1,0 +1,15 @@
+<map id="at_client.h" name="at_client.h">
+<area shape="rect" id="Node000001" title="Portable Hayes / 3GPP AT command client." alt="" coords="95,5,185,31"/>
+<area shape="rect" id="Node000002" href="$at__client_8c.html" title="Portable Hayes / 3GPP AT command client implementation." alt="" coords="13,79,102,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,42,73,80,69,76,115,38"/>
+<area shape="rect" id="Node000003" href="$at__port_8h.html" title="Portable serial port API for the AT client." alt="" coords="177,79,257,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,38,206,76,203,80,161,42"/>
+<area shape="rect" id="Node000004" href="$rockblock960x_8h.html" title="RockBLOCK 9602 / 9603 / 9604 driver: public API." alt="" coords="75,152,205,177"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="143,45,143,152,137,152,137,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,115,154,154,151,150,193,111"/>
+<area shape="rect" id="Node000006" href="$rockblock960x__begin_8c.html" title="rb960xBegin() and rb960xEnd(): rb960xInit() on the platform&#39;s serial port." alt="" coords="157,225,328,251"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="224,117,243,225,238,226,219,118"/>
+<area shape="rect" id="Node000005" href="$rockblock960x_8c.html" title="RockBLOCK 9602 / 9603 / 9604 driver: implementation." alt="" coords="5,225,133,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="121,189,83,227,79,223,117,185"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="169,183,227,223,224,227,166,187"/>
+</map>
