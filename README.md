@@ -228,7 +228,7 @@ rb.begin("/dev/ttyUSB0", baud=115200, debug=debug)
 - **Sky view:** the antenna needs a clear view of the sky. Indoors, under cover or near trees and buildings, sessions will often fail.
 - **Every session can cost credits:** this includes a session that only checks the mailbox. The library never starts one by itself.
 - **Every session also checks for MT messages:** a message it receives is left in the modem's MT buffer. Read it (or clear it) before the next session, which would otherwise erase it. Until then, sessions return `RB960X_ERR_MT_UNREAD`.
-- **Blocking:** most calls return quickly, but `rb960xInitiateSession()` waits for the session to finish, which can take a minute or more. To keep your program running meanwhile, use `rb960xInitiateSessionAsync()` and call `rb960xProcess()` regularly (`initiate_session_async()` and `process()` in Python). See `examples/sdb_send_async.c` and `python/examples/send_receive_async.py`.
+- **Blocking:** most calls return quickly, but `rb960xInitiateSession()` waits for the session to finish, which can take a minute or more. To keep your program running meanwhile, use `rb960xInitiateSessionAsync()` and call `rb960xProcess()` regularly (`initiate_session_async()` and `process()` in Python). See `examples/sbd_send_async.c` and `python/examples/send_receive_async.py`.
 - **Retrying is up to you:** a session makes one attempt. If it fails, `rb960xMoStatusText()` (`result.mo_status_text` in Python) says why. `rb960xSessionReady()` (`session_ready()`) is a quick, free check that a session is worth attempting now.
 - **Settings:** the limits and timeouts in `src/rockblock960x_config.h` can be changed without editing the file, e.g. `-DRB960X_SBD_SESSION_TIMEOUT_S=120`, or `build_flags` in `platformio.ini`.
 
@@ -239,9 +239,9 @@ All take `-d <serial device>`, `-b <baud>` (default 115200; use 19200 for a 9602
 | C (in `build/`) | What it does |
 | --- | --- |
 | `rb960x_device_info` | Prints the model, IMEI and firmware versions |
-| `rb960x_sdb_send -m "Hello"` | Sends one message |
-| `rb960x_sdb_send_async -m "Hello"` | Sends one message without blocking |
-| `rb960x_sdb_receive` | Listens for ring alerts and reads MT messages |
+| `rb960x_sbd_send -m "Hello"` | Sends one message |
+| `rb960x_sbd_send_async -m "Hello"` | Sends one message without blocking |
+| `rb960x_sbd_receive` | Listens for ring alerts and reads MT messages |
 
 `rb960x_send_receive` is the simplest example: no options, with the port set at the top of `examples/send_receive.c`.
 

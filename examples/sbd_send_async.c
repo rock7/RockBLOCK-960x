@@ -47,7 +47,7 @@ static void printHelp(const char * progName)
     printf("Usage: %s -d <device> [-h]\n", progName);
     printf("  -d, --device   Serial device to use (mandatory)\n");
     printf("  -b, --baud     Serial Baud Rate default is 115200 bps\n");
-    printf("  -m, --message  Payload to send over SDB\n");
+    printf("  -m, --message  Payload to send over SBD\n");
     printf("  -D, --debug    Enable debug on the standard output\n");
     printf("  -h, --help     Display this help message\n");
 }

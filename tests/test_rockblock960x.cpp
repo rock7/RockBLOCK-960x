@@ -312,7 +312,7 @@ TEST_F(Rb960xSwitchRatTest, ErrorUratTurnsRadioBackOn)
 
 TEST_F(Rb960xSwitchRatTest, SuccessfulAlreadyInMode)
 {
-    /* Modem already in SDB when init reads AT+URAT?. */
+    /* Modem already in SBD when init reads AT+URAT?. */
     scriptModem9604();
     ASSERT_EQ(RB960X_OK, init());
     ASSERT_EQ(RB960X_RAT_SBD, rb.ratMode);
