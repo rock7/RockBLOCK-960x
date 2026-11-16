@@ -265,6 +265,30 @@ Or straight from GitHub:
 pip install "git+https://github.com/rock7/RockBLOCK-960x#subdirectory=python"
 ```
 
+### On Windows
+
+The bindings are a native DLL that is compiled while pip installs them, so it must be built for the **same architecture as your Python**: a 64-bit Python needs a 64-bit (x64) build. Run `pip install` from the **x64 Native Tools Command Prompt for VS** (search the Start menu for it; on Windows on ARM use the **ARM64** one), *not* the plain *Developer Command Prompt for VS*, which defaults to 32-bit and produces a DLL your 64-bit Python can't load.
+
+A mismatch isn't caught at install time; it surfaces later, the first time you `import rockblock960x`:
+
+```
+OSError: [WinError 193] %1 is not a valid Win32 application
+```
+
+If you hit that, reinstall from the right command prompt. You can also force the architecture explicitly, which works from any prompt:
+
+```bat
+pip uninstall rockblock960x
+set CMAKE_GENERATOR_PLATFORM=x64
+pip install ./python
+```
+
+(Use `ARM64` in place of `x64` on Windows on ARM.) To check what you ended up with, compare your Python against the installed DLL:
+
+```bat
+python -c "import struct, platform; print(struct.calcsize('P')*8, 'bit', platform.machine())"
+```
+
 ## Building from source on Linux and macOS
 
 Needs CMake and a C compiler. From the repository root:
