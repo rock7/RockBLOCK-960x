@@ -1024,13 +1024,48 @@ static rb960xStatus_t rb960xApplySettings(rb960x_t *rb)
     return status;
 }
 
+/* Wait for the 9604 to come back after AT+CFUN=16 (see
+ * RB960X_RAT_SWITCH_TIMEOUT_MS). Let it go down first, drop any bytes left
+ * over from before the reset (a stale "OK" would make the module look
+ * ready), then probe until it answers. A silent module makes each probe
+ * use its full timeout, so the attempt count sets the overall wait. */
+static rb960xStatus_t rb960xWaitAfterReset(rb960x_t *rb)
+{
+    rb960xStatus_t status = RB960X_ERR_TIMEOUT;
+    uint8_t discard[64];
+    uint32_t attempts = RB960X_RAT_SWITCH_TIMEOUT_MS / RB960X_AT_PROBE_TIMEOUT_MS;
+    uint32_t attempt = 0;
+    uint32_t drained = 0;
+
+    if (attempts == 0U)
+    {
+        attempts = 1U;
+    }
+
+    DELAY_MS(RB960X_RAT_SWITCH_SETTLE_MS);
+
+    /* Capped, so a module that's still printing boot output can't keep
+     * us here; anything left is consumed by the probes' line parser. */
+    while ((drained < 64U) && (atClientReadRaw(&rb->at, discard, sizeof(discard), 0U) > 0))
+    {
+        drained++;
+    }
+
+    while ((status != RB960X_OK) && (attempt < attempts))
+    {
+        status = rb960xAtProbe(rb, RB960X_AT_PROBE_TIMEOUT_MS);
+        attempt++;
+    }
+
+    return status;
+}
+
 /* Switch the 9604's RAT (see rb960xSwitchRat()) without restoring the
  * settings afterwards. rb960xInit() uses this, as it makes the settings
  * straight after. */
 static rb960xStatus_t rb960xSwitchRatOnly(rb960x_t *rb, rb960xRatMode_t mode)
 {
     rb960xStatus_t status = RB960X_ERR_ARG;
-    uint8_t probeCount = 0;
     char resp[RB960X_LINE_BUF_SIZE];
 
     if ((rb != NULL) &&
@@ -1066,12 +1101,7 @@ static rb960xStatus_t rb960xSwitchRatOnly(rb960x_t *rb, rb960xRatMode_t mode)
                 /* Wait for the module to come back after the reset. */
                 if (status == RB960X_OK)
                 {
-                    status = rb960xAtProbe(rb, 100);
-
-                    while ((status != RB960X_OK) && (++probeCount < 20U))
-                    {
-                        status = rb960xAtProbe(rb, 100);
-                    }
+                    status = rb960xWaitAfterReset(rb);
                 }
 
                 /* The reset can turn echo back on, so turn it off again,
