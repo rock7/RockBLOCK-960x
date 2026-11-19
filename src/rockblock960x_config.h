@@ -120,6 +120,21 @@
 #define RB960X_INIT_RAT RB960X_INIT_RAT_SBD
 #endif
 
+/* After a RAT switch resets the 9604 (AT+CFUN=16), rb960xSwitchRat() waits
+ * RB960X_RAT_SWITCH_SETTLE_MS for the module to actually go down, discards
+ * anything still in the receive buffer from before the reset, then sends
+ * "AT" every RB960X_AT_PROBE_TIMEOUT_MS until the module answers or
+ * RB960X_RAT_SWITCH_TIMEOUT_MS has passed. Without the settle delay, a
+ * probe sent straight after the reset can be answered by the module
+ * before it goes down, so the commands that follow land mid-reboot. */
+#ifndef RB960X_RAT_SWITCH_SETTLE_MS
+#define RB960X_RAT_SWITCH_SETTLE_MS 1000
+#endif
+
+#ifndef RB960X_RAT_SWITCH_TIMEOUT_MS
+#define RB960X_RAT_SWITCH_TIMEOUT_MS 30000
+#endif
+
 /* --------------------------------------------------------------------------
  * Timeouts
  * ------------------------------------------------------------------------ */
